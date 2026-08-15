@@ -1,0 +1,254 @@
+/* StudyCore 12 — Auth / Password Lock Screen */
+
+.auth-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  animation: authCardIn 0.6s var(--ease-out-expo) both;
+}
+
+@keyframes authCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  margin: 0 auto 20px;
+  background: rgba(255,255,255,0.1);
+  padding: 6px;
+  animation: authLogoPulse 2s ease-in-out infinite;
+}
+
+@keyframes authLogoPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.15); }
+  50% { box-shadow: 0 0 0 12px rgba(255,255,255,0); }
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+}
+
+.auth-subtitle {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 32px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 14px 48px 14px 18px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.25s ease;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+.auth-eye-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 6px;
+  border-radius: 6px;
+  color: rgba(255,255,255,0.4);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-eye-btn:hover {
+  color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.08);
+}
+
+.auth-eye-btn:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.auth-eye-icon {
+  display: block;
+}
+
+.auth-input-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.3);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input::placeholder {
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.05em;
+}
+
+.auth-input:focus {
+  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 14px;
+  background: #fff;
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+}
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,255,255,0.15);
+}
+
+.auth-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.auth-error {
+  color: #ff6b6b;
+  font-size: 0.8125rem;
+  margin-top: 4px;
+  animation: authErrorShake 0.4s ease;
+}
+
+@keyframes authErrorShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.auth-timer-section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.auth-timer-label {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.auth-timer {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.auth-logout-btn {
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-logout-btn:hover {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+.app-hidden {
+  display: none;
+}
+
+/* Shake on wrong password */
+.auth-input.shake {
+  animation: inputShake 0.4s ease;
+}
+
+@keyframes inputShake {
+  0%, 100% { transform: translateX(0); border-color: rgba(255,255,255,0.12); }
+  20% { transform: translateX(-6px); border-color: #ff6b6b; }
+  40% { transform: translateX(6px); border-color: #ff6b6b; }
+  60% { transform: translateX(-3px); border-color: #ff6b6b; }
+  80% { transform: translateX(3px); border-color: #ff6b6b; }
+}
+
+/* Success state */
+.auth-input.success {
+  border-color: #51cf66;
+  background: rgba(81, 207, 102, 0.08);
+}
+
+.auth-btn.success {
+  background: #51cf66;
+  color: #fff;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .auth-card {
+    max-width: 100%;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+  }
+
+  .auth-timer {
+    font-size: 1.5rem;
+  }
+}

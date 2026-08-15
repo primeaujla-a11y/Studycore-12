@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Class 12 PSEB Physics + Chemistry Study App">
+  <meta name="theme-color" content="#000000">
+  <title>StudyCore 12 — PSEB Physics & Chemistry</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="responsive.css">
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+  <!-- Password Lock Screen -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-card">
+      <img src="logo.png" alt="StudyCore 12" class="auth-logo">
+      <h1 class="auth-title">StudyCore 12</h1>
+      <p id="auth-greeting" class="auth-subtitle">Class 12 PSEB Physics & Chemistry</p>
+      <div class="auth-form">
+        <div class="auth-input-wrap">
+          <input type="text" id="auth-username" class="auth-input" placeholder="Your name" autocomplete="off">
+          <span class="auth-input-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </span>
+        </div>
+        <div class="auth-input-wrap">
+          <input type="password" id="auth-password" class="auth-input" placeholder="Enter password" autocomplete="off">
+          <button id="auth-toggle-pw" class="auth-eye-btn" type="button" aria-label="Toggle password visibility">
+            <svg id="auth-eye-open" class="auth-eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg id="auth-eye-closed" class="auth-eye-icon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+        <button id="auth-submit" class="auth-btn">Unlock</button>
+        <p id="auth-error" class="auth-error hidden">Incorrect password. Try again.</p>
+      </div>
+      <div id="auth-timer-section" class="auth-timer-section hidden">
+        <div class="auth-timer-label">Session expires in</div>
+        <div id="auth-timer" class="auth-timer">24:00:00</div>
+        <button id="auth-logout" class="auth-logout-btn">Lock App</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="app" class="app-hidden">
+    <!-- Desktop Sidebar -->
+    <nav id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <img src="logo.png" alt="StudyCore 12" class="logo-img">
+          <span class="logo-text">StudyCore 12</span>
+        </div>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="#/" data-nav="home" class="nav-link active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Dashboard</span>
+        </a></li>
+        <li><a href="#/physics" data-nav="physics" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20"/><path d="M2 12h20"/></svg>
+          <span>Physics</span>
+        </a></li>
+        <li><a href="#/chemistry" data-nav="chemistry" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v12l-3 3h12l-3-3V3"/><path d="M8 3h8"/><path d="M12 15v4"/><path d="M7 19h10"/></svg>
+          <span>Chemistry</span>
+        </a></li>
+        <li><a href="#/formulas" data-nav="formulas" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          <span>Formula Vault</span>
+        </a></li>
+        <li><a href="#/numericals" data-nav="numericals" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h8"/><path d="M8 12h4"/><path d="M8 16h6"/></svg>
+          <span>Numerical Gen</span>
+        </a></li>
+        <li><a href="#/periodic-table" data-nav="periodic-table" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          <span>Periodic Table</span>
+        </a></li>
+        <li><a href="#/examples" data-nav="examples" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Examples</span>
+        </a></li>
+        <li><a href="#/important-questions" data-nav="important-questions" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Questions</span>
+        </a></li>
+        <li><a href="#/bookmarks" data-nav="bookmarks" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
+          <span>Bookmarks</span>
+        </a></li>
+        <li><a href="#/progress" data-nav="progress" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Progress</span>
+        </a></li>
+        <li><a href="#/settings" data-nav="settings" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+          <span>Settings</span>
+        </a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="search-bar-container">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="global-search" class="search-input" placeholder="Search anything — formula, element, reaction, chapter..." autocomplete="off">
+          <button id="search-clear" class="search-clear hidden" aria-label="Clear search">&times;</button>
+        </div>
+      </header>
+
+      <!-- Search Results Overlay -->
+      <div id="search-results" class="search-results hidden">
+        <div class="search-results-inner"></div>
+      </div>
+
+      <!-- Page Content -->
+      <div id="page-content" class="page-content"></div>
+    </main>
+
+    <!-- Mobile Bottom Nav -->
+    <nav id="mobile-nav" class="mobile-nav">
+      <a href="#/" data-nav="home" class="mobile-nav-link active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="#/search-page" data-nav="search-page" class="mobile-nav-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Search</span>
+      </a>
+      <a href="#/subjects" data-nav="subjects" class="mobile-nav-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        <span>Subjects</span>
+      </a>
+      <a href="#/formulas" data-nav="formulas" class="mobile-nav-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Formulas</span>
+      </a>
+      <button id="mobile-more-toggle" class="mobile-nav-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+        <span>More</span>
+      </button>
+    </nav>
+
+    <!-- Mobile More Menu -->
+    <div id="mobile-more-menu" class="mobile-more-menu hidden">
+      <div class="mobile-more-overlay"></div>
+      <div class="mobile-more-panel">
+        <div class="mobile-more-header">
+          <h3>More</h3>
+          <button id="mobile-more-close" class="btn-icon">&times;</button>
+        </div>
+        <div class="mobile-more-links">
+          <a href="#/numericals" data-nav="numericals">Numerical Generator</a>
+          <a href="#/periodic-table" data-nav="periodic-table">Periodic Table</a>
+          <a href="#/examples" data-nav="examples">Examples</a>
+          <a href="#/important-questions" data-nav="important-questions">Important Questions</a>
+          <a href="#/bookmarks" data-nav="bookmarks">Bookmarks</a>
+          <a href="#/progress" data-nav="progress">Progress</a>
+          <a href="#/settings" data-nav="settings">Settings</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="elements.js"></script>
+  <script src="physics-chapters.js"></script>
+  <script src="chemistry-chapters.js"></script>
+  <script src="formulas.js"></script>
+  <script src="numericals.js"></script>
+  <script src="examples.js"></script>
+  <script src="questions.js"></script>
+  <script src="storage.js"></script>
+  <script src="search.js"></script>
+  <script src="router.js"></script>
+  <script src="ui.js"></script>
+  <script src="progress.js"></script>
+  <script src="periodic-table.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
